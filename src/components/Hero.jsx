@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";  // ← add useState, useEffect
 import NeuralSphere from "./NeuralSphere";
-import StatsBar from "./StatsBar";
 import useResponsive from "../hooks/useResponsive";
 
 // Add this component above the Hero function
@@ -157,9 +156,15 @@ export default function Hero({
           max-w-7xl
           mx-auto
           px-8
-          pt-24
           relative
           z-10
+          h-32
+          pt-20
+          md:h-64
+          md:pt-24
+          lg:h-screen
+          lg:max-h-none
+
         "
         style={{ pointerEvents: "none" }}
       >
@@ -180,7 +185,7 @@ export default function Hero({
 
           <h1
             className="
-              text-[3rem]
+              text-[2rem]
               sm:text-5xl
               md:text-6xl
               lg:text-7xl
@@ -242,7 +247,7 @@ export default function Hero({
           </div>
 
           <div
-            className="flex gap-4"
+            className="flex gap-4 mt-10"
             style={{ pointerEvents: "auto" }}
           >
             <button
@@ -386,13 +391,6 @@ export default function Hero({
             />
           </a>
         </motion.div>
-        )}
-
-        {/* Stats Bar */}
-        {!isMobile && !showSkillClusters && !showProjectClusters && (
-          <div className="mt-24 mb-8">
-            <StatsBar />
-          </div>
         )}
       </div>
     </section>

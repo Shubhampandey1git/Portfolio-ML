@@ -22,16 +22,15 @@ export default function ProjectModal({
 
           <motion.div
             className="
-              fixed
-              left-1/2
-              top-1/2
-              z-[101]
-              w-[900px]
-              max-w-[95vw]
-              max-h-[85vh]
-              -translate-x-1/2
-              -translate-y-1/2
-            "
+            fixed
+            left-1/2
+            top-[90px]
+            z-[9999]
+            w-[900px]
+            max-w-[95vw]
+            h-[calc(100vh-110px)]
+            -translate-x-1/2
+          "
             initial={{
               opacity: 0,
               scale: 0.8,
@@ -54,14 +53,19 @@ export default function ProjectModal({
                 border-green-500/40
                 bg-black/90
                 backdrop-blur-xl
-                p-8
+                p-4 md:p-8
                 overflow-y-auto
-                max-h-[85vh]
+                h-full
                 shadow-[0_0_50px_rgba(0,255,100,0.2)]
               "
             >
               <h2
-                className="text-4xl font-bold mb-4"
+                className="
+                  text-2xl
+                  md:text-4xl
+                  font-bold
+                  mb-4
+                "
                 style={{
                   color: project.color
                 }}
@@ -254,6 +258,7 @@ export default function ProjectModal({
                   absolute
                   top-4
                   right-4
+                  z-50
                   text-gray-400
                   hover:text-white
                 "

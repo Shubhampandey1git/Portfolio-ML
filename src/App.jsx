@@ -5,6 +5,7 @@ import ProjectModal from "./components/ProjectModal";
 import ContactModal from "./components/ContactModal";
 import AboutModal from "./components/AboutModal";
 import "./styles/responsive.css";
+import StatsDrawer from "./components/StatsDrawer";
 
 function App() {
   const timers = useRef([]);
@@ -159,6 +160,15 @@ function App() {
         isOpen={showAboutModal}
         onClose={() => setShowAboutModal(false)}
       />
+
+      <StatsDrawer 
+      visible={
+        !showProjectClusters &&
+        !showSkillClusters &&
+        !selectedProject &&
+        !showAboutModal &&
+        !showContactModal
+      }/>
 
       <ContactModal
         isOpen={showContactModal}

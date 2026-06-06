@@ -176,7 +176,7 @@ function Nodes({
                 ? 0.7
                 : expand
                   ? 1.0
-                  : 0.45
+                  : 0.35
           )
         : (
             showSkillClusters
@@ -194,14 +194,22 @@ function Nodes({
 
     // --- X offset (sphere sits right on home, centered for projects/skills) ---
     const targetX =
-        isMobile
+      isMobile
+        ? 1.5
+        : (expand || showSkillClusters)
           ? 0
-          : (expand || showSkillClusters)
-            ? 0
-            : 3;
+          : 3;
+    const targetY = 0;
     groupRef.current.position.x = THREE.MathUtils.lerp(
       groupRef.current.position.x, targetX, 0.01
     );
+
+    groupRef.current.position.y =
+      THREE.MathUtils.lerp(
+        groupRef.current.position.y,
+        targetY,
+        0.01
+      );
 
     // --- Edge opacity ---
     const targetOpacity =
