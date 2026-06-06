@@ -7,6 +7,7 @@ import useBrainPoints from "./BrainPoints";
 import ProjectClusters, { PROJECTS, tickClusters } from "./ProjectClusters";
 import { buildSkillNetwork } from "./SkillNetwork";
 import SkillHubs from "./SkillHubs";
+import useResponsive from "../hooks/useResponsive";
 
 function makeNodeRef() {
   return {
@@ -44,6 +45,7 @@ function Nodes({
   setSelectedProject,
   showSkillClusters,
   showExplosion,
+  isMobile,
 }) {
   // This group rotates for sphere/brain, but we stop rotating once skill clusters show
   const groupRef    = useRef();
@@ -166,20 +168,37 @@ function Nodes({
 
     // --- Scale ---
     const targetScale =
-      showSkillClusters
-        ? 1.0
-        : showExplosion
-          ? 0.9
-          : expand
-            ? 1.4
-            : 0.6;
+      isMobile
+        ? (
+            showSkillClusters
+              ? 0.75
+              : showExplosion
+                ? 0.7
+                : expand
+                  ? 1.0
+                  : 0.45
+          )
+        : (
+            showSkillClusters
+              ? 1.0
+              : showExplosion
+                ? 0.9
+                : expand
+                  ? 1.4
+                  : 0.6
+          );
 
     groupRef.current.scale.lerp(
       new THREE.Vector3(targetScale, targetScale, targetScale), 0.008
     );
 
     // --- X offset (sphere sits right on home, centered for projects/skills) ---
-    const targetX = (expand || showSkillClusters) ? 0 : 3;
+    const targetX =
+        isMobile
+          ? 0
+          : (expand || showSkillClusters)
+            ? 0
+            : 3;
     groupRef.current.position.x = THREE.MathUtils.lerp(
       groupRef.current.position.x, targetX, 0.01
     );
@@ -273,6 +292,8 @@ export default function NeuralSphere({
   showExplosion,
   controlsRef,
 }) {
+  const isMobile = useResponsive();
+
   let autoRotateSpeed = 3;
 
   if (morph && !showProjectClusters) {
@@ -285,8 +306,14 @@ export default function NeuralSphere({
     autoRotateSpeed = 0;
   }
   return (
-    <div className="w-screen h-screen">
-      <Canvas camera={{ position: [0, 0, 6]}}>
+    <div
+      className={
+        showSkillClusters && isMobile
+          ? "w-screen min-h-[1400px]"
+          : "w-screen h-screen overflow-hidden"
+      }
+    >
+      <Canvas camera={{ position: [0, 0, isMobile ? 9 : 6]}}>
         <MobileScale active={showSkillClusters} />
         <ForceFrontView active={showSkillClusters} />
         <ambientLight intensity={5} />
@@ -300,20 +327,20 @@ export default function NeuralSphere({
           setSelectedProject={setSelectedProject}
           showSkillClusters={showSkillClusters}
           showExplosion={showExplosion}
+          isMobile={isMobile}
         />
         {/* OrbitControls only for user drag — autoRotate removed, we drive rotation manually */}
         <OrbitControls
           enabled={!showSkillClusters}
           ref={controlsRef}
-          enableZoom={false}
           enablePan={showSkillClusters}        // ← allow pan when viewing skills
           enableRotate={!showSkillClusters}    // ← disable rotate when viewing skills
           autoRotate={!showSkillClusters}
           autoRotateSpeed={autoRotateSpeed}
           enableDamping
           dampingFactor={0.08}
-          minDistance={6}
-          maxDistance={6}
+          minDistance={isMobile ? 9 : 6}
+          maxDistance={isMobile ? 9 : 6}
           makeDefault
         />
       </Canvas>

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";  // ← add useState, useEffect
 import NeuralSphere from "./NeuralSphere";
 import StatsBar from "./StatsBar";
+import useResponsive from "../hooks/useResponsive";
 
 // Add this component above the Hero function
 function TypewriterText({ text, delay = 0 }) {
@@ -44,8 +45,15 @@ export default function Hero({
   showExplosion,
   controlsRef,
 }) {
+  const isMobile = useResponsive();
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <section
+      className={
+        showSkillClusters && isMobile
+          ? "relative min-h-screen overflow-y-auto"
+          : "relative min-h-screen overflow-hidden"
+      }
+    >
 
       {showSkillClusters && (
         <motion.div
@@ -123,7 +131,13 @@ export default function Hero({
       )}
 
       {/* Brain Background */}
-      <div className="fixed inset-0">
+      <div
+        className={
+          showSkillClusters && isMobile
+            ? "absolute inset-0"
+            : "fixed inset-0"
+        }
+      >
         <NeuralSphere
           morph={morph}
           expand={expand}
@@ -164,8 +178,18 @@ export default function Hero({
             AI/ML ENGINEER<span className="cursor">_</span>
           </p>
 
-          <h1 className="text-7xl font-bold mb-6">
-            Hi, I'm
+          <h1
+            className="
+              text-[3rem]
+              sm:text-5xl
+              md:text-6xl
+              lg:text-7xl
+              xl:text-8xl
+              leading-none
+              font-bold
+            "
+          >
+                      Hi, I'm
             <br />
 
             <motion.span
@@ -187,14 +211,30 @@ export default function Hero({
             </motion.span>
           </h1>
 
-          <p className="text-gray-300 text-xl leading-relaxed mb-8">
+          <p
+            className="
+              text-gray-300
+              text-base
+              md:text-xl
+              leading-relaxed
+              mb-8
+            "
+          >
             Building AI systems that see,
             understand and solve
             real-world problems.
             I ship systems, not notebooks.
           </p>
 
-          <div className="space-y-3 text-lg text-gray-300 mb-10">
+          <div
+            className="
+              space-y-3
+              text-base
+              md:text-lg
+              text-gray-300
+              mb-10
+            "
+          >
             <p>{">"} Computer Vision [ OK ]</p>
             <p>{">"} NLP [ OK ]</p>
             <p>{">"} Edge AI [ OK ]</p>
@@ -349,7 +389,7 @@ export default function Hero({
         )}
 
         {/* Stats Bar */}
-        {!showSkillClusters && !showProjectClusters && (
+        {!isMobile && !showSkillClusters && !showProjectClusters && (
           <div className="mt-24 mb-8">
             <StatsBar />
           </div>

@@ -1,0 +1,57 @@
+/* Tablets */
+@media (max-width: 1024px) {
+
+  .hero-title {
+    font-size: 4rem !important;
+  }
+
+  .sphere-container {
+    transform: scale(0.8);
+  }
+
+}
+
+/* Phones */
+@media (max-width: 768px) {
+
+  .hero-title {
+    font-size: 2.5rem !important;
+    text-align: center;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .sphere-container {
+    transform: scale(0.6);
+  }
+
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+
+  .hero-title {
+    font-size: 2rem !important;
+  }
+
+  .sphere-container {
+    transform: scale(0.45);
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  html,
+  body,
+  #root {
+    overflow-x: hidden;
+  }
+
+  canvas {
+    touch-action: none;
+  }
+
+}

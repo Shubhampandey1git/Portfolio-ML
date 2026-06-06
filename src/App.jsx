@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import ProjectModal from "./components/ProjectModal";
 import ContactModal from "./components/ContactModal";
 import AboutModal from "./components/AboutModal";
+import "./styles/responsive.css";
 
 function App() {
   const timers = useRef([]);
@@ -118,6 +119,18 @@ function App() {
       }, 4200)
     );
   };
+
+  useEffect(() => {
+    if (showSkillClusters) {
+      document.body.style.overflowY = "auto";
+    } else {
+      document.body.style.overflowY = "hidden";
+    }
+
+    return () => {
+      document.body.style.overflowY = "hidden";
+    };
+  }, [showSkillClusters]);
 
   return (
     <>

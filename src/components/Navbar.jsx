@@ -95,9 +95,12 @@ export default function Navbar({
               >
                 HOME
               </button>
-              <span className="text-green-400 py-2 border-b border-green-900 opacity-50">
+              <button
+                onClick={() => handleNav(onAboutClick)}
+                className="text-green-400 text-left py-2 border-b border-green-900 hover:text-green-300 transition cursor-pointer"
+              >
                 ABOUT
-              </span>
+              </button>
               <button
                 onClick={() => handleNav(onProjectsClick)}
                 className="text-green-400 text-left py-2 border-b border-green-900 hover:text-green-300 transition cursor-pointer"
