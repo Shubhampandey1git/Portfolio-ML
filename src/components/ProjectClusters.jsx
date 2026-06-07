@@ -35,7 +35,7 @@ export const PROJECTS = [
     ],
 
     github:
-      "https://github.com/Shubhampandey1git/Drishti.git",
+      "https://github.com/Shubhampandey1git/Drishti_Computer_Vision.git",
 
     video:
       "https://youtu.be/9KMAdDJsxkU",
